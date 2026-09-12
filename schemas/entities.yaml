@@ -1,0 +1,48 @@
+schema_version: 1.0.0
+services:
+  mvc:
+    id: 586
+    code: moving-concierge-rfq
+  moving_rfq:
+    id: 112
+    code: moving-rfq
+  office_moving:
+    id: 388
+    exclusion_note: do not mix into household MVC analysis
+special_partners:
+  miso_manager:
+    partner_id: 64627
+    exclusion_note: exclude manager activity from partner quote and processing metrics when applicable
+entities:
+  request:
+    default_unique_key: request_id
+  visit:
+    completion_note: use valid evidence such as video rather than planner tag alone
+  quote:
+    unique_key: quote primary key or request_id plus quote_id
+    valid_status: submitted
+  contract:
+    recognition_note: use the payment event defined by the report
+  partner:
+    active_definition: at least one valid submitted quote in the explicitly selected period
+core_sources:
+  datamart.rfq_gmv_daily:
+    use: historical aggregate and cohort analysis
+    prohibition: do not use for same-day contract count
+  datamart.fct_mv_concierge_bills:
+    use: MVC payment and contract events after confirming the timestamp field
+  datamart.mv_concierge_wide:
+    use: integrated MVC funnel, price, quote and partner analysis
+  miso_rfq_production_public_request:
+    use: request-level operational source
+    warning: do not assume service_type exists
+  miso_rfq_production_public_quote:
+    use: quote-level operational source
+    filter: submitted quotes only
+  datamart.fact_sendbird_messages:
+    use: customer chat analysis
+known_bad_assumptions:
+  - datamart.int_mv_concierge_quotes_unnested exists
+  - monthly_summary is a catalog table rather than a local CTE alias
+  - every request table contains service_type
+

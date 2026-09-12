@@ -1,0 +1,19 @@
+schema_version: 1.0.0
+terms:
+  MVC: Moving Concierge, 미소방문
+  RFQ: Request for Quotation, 파트너 견적 요청
+  Lead: 방문완료 이전의 적합성 판단 대상 고객 요청
+  Request: 운영 주문 또는 RFQ의 기본 중복 제거 단위
+  Visit Complete: 유효 영상 등 완료 증빙이 있는 현장 방문
+  Processing: 제외조건 적용 후 유효 파트너 견적 참여가 시작된 상태
+  Quote Submitted: Incoming이나 생성이 아닌 실제 제출 완료 견적
+  AQPR: 명시된 대상 Request당 유효 제출 견적수
+  Contract: 고객 선택 후 리포트가 지정한 결제 이벤트가 완료된 상태
+  Due date: 이사예정일
+preferred_expressions:
+  actual_mover: 이사업체 또는 서비스 제공 파트너
+  quote_provider: 견적 파트너 또는 이사 파트너
+  miso_product_role: 견적 비교·연결 서비스 또는 이사 준비 지원 서비스
+discouraged_expressions:
+  주선업체: 규제상 역할과 계약 상대방에 대한 오해를 만들 수 있으므로 실제 역할에 맞는 중립 표현 사용
+

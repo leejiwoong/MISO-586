@@ -1,0 +1,43 @@
+name: miso-visit-ai-pack
+version: 1.0.0
+language: ko
+knowledge_as_of: 2026-09-12
+domain: Miso Visit / Moving Concierge
+service_ids:
+  mvc: 586
+  moving_rfq: 112
+  office_moving: 388
+default_timezone: Asia/Seoul
+default_output_language: ko
+confidentiality: internal
+freshness_policy:
+  static:
+    - service definitions
+    - metric calculation rules
+    - analytical guardrails
+  volatile:
+    - daily and weekly KPI values
+    - owners and organization assignments
+    - open service areas
+    - prices, fees, policies and CRM schemas
+  volatile_action: verify against the current source before answering as current fact
+source_priority:
+  - current user message or newly supplied source
+  - live authoritative source listed in core/source-map.md
+  - most recent confirmed decision
+  - dated knowledge snapshot
+  - explicitly labeled assumption
+load_order:
+  - generic/SYSTEM_PROMPT.md
+  - manifest.yaml
+  - relevant core documents
+  - relevant schemas
+entrypoints:
+  onboarding: core/service-model.md
+  operations: core/operations-playbook.md
+  metrics_and_sql: core/metrics-and-data.md
+  commercial_and_risk: core/commercial-policy-and-risk.md
+  expansion_and_seasonality: core/growth-and-seasonality.md
+  history: core/history-and-snapshots.md
+  live_source_routing: core/source-map.md
+

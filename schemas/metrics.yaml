@@ -1,0 +1,56 @@
+schema_version: 1.0.0
+timezone: Asia/Seoul
+metrics:
+  lead_to_contract:
+    label: Lead → Contract
+    numerator: unique paid contracts attributable to the selected lead set
+    denominator: unique eligible leads
+    target: 0.35
+    reference_bep: 0.37
+    required_disclosures: [grain, date_basis, cohort_or_simple, payment_event, exclusions]
+  lead_to_visit_complete:
+    label: Lead → Visit Complete
+    numerator: unique requests with valid visit-complete evidence
+    denominator: unique eligible leads
+    target: 0.80
+    evidence_priority: valid video evidence
+    required_disclosures: [eligibility, cancellation_handling, date_basis]
+  visit_complete_to_contract:
+    label: Visit Complete → Contract
+    numerator: unique paid contracts
+    denominator: unique visit-complete requests
+    reference_target: 0.50
+    required_disclosures: [cohort_linkage, payment_event]
+  aqpr:
+    label: Average Qualified Quotes per Request
+    numerator: unique valid submitted partner quotes
+    denominator_default: unique visit-complete quote-eligible requests
+    strategic_target: 4.0
+    daily_reference: 3.8
+    exclude: [miso_manager, planner, partner_id_64627_when_manager_activity]
+    distinguish: [participation_slot, submitted, recommended, customer_visible]
+    limits:
+      participation_slots: 6
+      customer_visible_quotes: 4
+    required_disclosures: [denominator_population, clamp, quote_status, exclusions]
+  low_quote_request_rate:
+    label: 견적 2개 이하 Request 비율
+    numerator: unique quote-eligible requests with 0 to 2 valid submitted quotes
+    denominator: unique quote-eligible requests
+    target: 0.0
+  quote_within_6h_rate:
+    label: 방문완료 후 6시간 내 견적 제출률
+    numerator: quote-eligible requests with a valid submitted quote within 6 hours
+    denominator: unique quote-eligible requests
+    operating_target: 0.50
+  unrecommended_request_rate:
+    label: 미추천 Request 비율
+    numerator: customer-display-eligible requests with zero recommended valid quotes
+    denominator: customer-display-eligible requests
+    target: 0.0
+  estimated_top5_missing_quote_cnt:
+    label: Top 5 수요일 견적 부족 추정치
+    formula: top5_visit_complete_cnt * top5_excluded_day_aqpr - actual_top5_submitted_quote_cnt
+    default_floor_at_zero: true
+    required_inputs: [top5_visit_complete_cnt, actual_top5_submitted_quote_cnt, top5_excluded_day_aqpr]
+
